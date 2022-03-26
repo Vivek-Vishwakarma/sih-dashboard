@@ -23,7 +23,6 @@ router.post("/register", async (req, res) => {
       });
       const token = jwt.sign({ id: user._id }, "secret");
       res.send({ sucess: true, token: token, user });
-      // res.send({success : true , user});
     }
   } catch (error) {
     res

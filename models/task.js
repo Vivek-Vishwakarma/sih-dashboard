@@ -32,7 +32,8 @@ const testSchema = new Schema({
         default : Date.now
     },
     success : {
-        type : Boolean
+        type : Boolean,
+        default : false
     }
   });
   const Task = mongoose.model("task", testSchema)
