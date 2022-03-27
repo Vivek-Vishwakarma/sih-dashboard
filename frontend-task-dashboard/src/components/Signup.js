@@ -3,31 +3,44 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
+import "../App.css"
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel } from "@mui/material";
+import axios from "axios";
 
 const theme = createTheme();
 
 export default function Signup() {
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClick = () => {
-    setShowPassword(!showPassword);
-    console.log("click")
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    department: "",
+  });
+
+  const postRegister = async (e) => {
+    e.preventDefault()
+    console.log(user)
+    await axios
+    .post("http://localhost:5000/api/auth/register", user)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
     });
+  }
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -49,17 +62,17 @@ export default function Signup() {
           </Typography>
           <Box
             component="form"
-            noValidate
-            onSubmit={handleSubmit}
+            onSubmit={postRegister}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
+                  onChange={handleChange}
                   id="firstName"
                   label="Name"
                   autoFocus
@@ -70,34 +83,31 @@ export default function Signup() {
                   required
                   fullWidth
                   id="email"
+                  onChange={handleChange}
                   label="Email Address"
                   name="email"
-                  autoComplete="email"
+                  type="email"
+                  autoComplete="off"
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Departmant
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Departmant"
-                  >
-                    <MenuItem>IT</MenuItem>
-                    <MenuItem>CMPN</MenuItem>
-                    <MenuItem>EXTC</MenuItem>
-                  </Select>
+                  <select onChange={handleChange} name="department" id="dep">
+                  <option value="" disabled selected>Department *</option>
+                    <option value="it">IT</option>
+                    <option value="cmpn">CMPN</option>
+                    <option value="extc">EXTC</option>
+                  </select>
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={handleChange}
                   required
                   fullWidth
                   name="password"
                   label="Password"
-                  type={showPassword ? "passsword" : "text"}
+                  type="password"
                   id="password"
                   autoComplete="new-password"
                 />
@@ -106,6 +116,7 @@ export default function Signup() {
             <Button
               type="submit"
               fullWidth
+              onSubmit={postRegister}
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
@@ -113,7 +124,7 @@ export default function Signup() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
