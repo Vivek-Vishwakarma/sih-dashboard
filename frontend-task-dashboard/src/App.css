@@ -5,3 +5,16 @@
  color: hsl(0, 0%, 50%);
  border: 1px solid hsl(0, 0%, 50%);
 }
+.div{
+    background-color: whitesmoke;
+    padding: 20px 30px;
+    border-radius: 10px;
+    margin-top: 5%;
+    -webkit-box-shadow: 6px 4px 16px 3px rgba(0,0,0,0.64);
+-moz-box-shadow: 6px 4px 16px 3px rgba(0,0,0,0.64);
+box-shadow: 6px 4px 16px 3px rgba(0,0,0,0.64);
+}
+body{
+background-image: url("./images/bg.jpg");
+background-repeat: no-repeat;
+}

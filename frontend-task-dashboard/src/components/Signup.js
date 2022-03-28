@@ -44,11 +44,10 @@ export default function Signup() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container className="div" component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -93,7 +92,7 @@ export default function Signup() {
               <Grid item xs={12}>
                 <FormControl fullWidth>
                   <select onChange={handleChange} name="department" id="dep">
-                  <option value="" disabled selected>Department *</option>
+                    <option>Department *</option>
                     <option value="it">IT</option>
                     <option value="cmpn">CMPN</option>
                     <option value="extc">EXTC</option>
