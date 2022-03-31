@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 import "../App.css";
+import Box from '@mui/material/Box';
 
 const Dashboard = () => {
   return (
@@ -8,7 +9,9 @@ const Dashboard = () => {
       <aside className="side">
         <Sidebar />
       </aside>
-      <div className="dashDiv">hello</div>
+      <Box className="dashDiv">
+        <h1>Welcome to Dashboard</h1>
+      </Box>
     </div>
   );
 };
