@@ -20,6 +20,7 @@
 }
 .dash{
   display: flex;
+  min-height: 100vh;
 }
 .dashDiv{
   margin-left: 30px;
