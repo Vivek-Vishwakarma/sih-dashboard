@@ -67,7 +67,7 @@ export default function Signup() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="given-name"
+                  autoComplete="off"
                   name="name"
                   required
                   fullWidth
@@ -92,7 +92,7 @@ export default function Signup() {
               <Grid item xs={12}>
                 <FormControl fullWidth>
                   <select onChange={handleChange} name="department" id="dep">
-                    <option>Department *</option>
+                    <option disabled value="dep">Department *</option>
                     <option value="it">IT</option>
                     <option value="cmpn">CMPN</option>
                     <option value="extc">EXTC</option>
@@ -108,7 +108,7 @@ export default function Signup() {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
+                  autoComplete="off"
                 />
               </Grid>
             </Grid>
@@ -123,8 +123,9 @@ export default function Signup() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
+              Already have an account? {" "}
                 <Link to="/login" variant="body2">
-                  Already have an account? Sign in
+                  Sign in
                 </Link>
               </Grid>
             </Grid>

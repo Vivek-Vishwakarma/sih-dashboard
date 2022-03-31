@@ -18,11 +18,11 @@ const upload = multer({
 
 router.post("/newtask", auth, upload.single("file"), async (req, res) => {
   try {
-    const { name, description, success, updatedAt, status, department } =
+    const { filename, description, success, updatedAt, status, department } =
       req.body;
     const file = req.file.filename;
     const newTask = await Task.create({
-      name,
+      filename,
       description,
       success,
       updatedAt,
@@ -31,8 +31,8 @@ router.post("/newtask", auth, upload.single("file"), async (req, res) => {
       file,
       user: req.user.id
     });
+    res.send({success : true, task : newTask})
     console.log(newTask)
-    res.send(newTask)
   } catch (error) {
     res.send(error)
   }

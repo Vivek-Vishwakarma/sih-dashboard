@@ -18,10 +18,14 @@ const testSchema = new Schema({
     },
     status : {
         type : String,
+        default : "Pending"
     },
-    name : {
+    filename : {
         type : String,
         required : true
+    },
+    priority : {
+        type : String
     },
     createdAt : {
         type : Date,

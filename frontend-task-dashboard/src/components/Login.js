@@ -84,8 +84,9 @@ export default function Login() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item >
+              Don't have an account? {" "}
                 <Link to="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  Sign Up
                 </Link>
               </Grid>
             </Grid>

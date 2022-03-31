@@ -1,20 +1,33 @@
+#dep {
+  padding: 15px 8px;
+  font-size: 1rem;
+  color: hsl(0, 0%, 50%);
+  border: 1px solid hsl(0, 0%, 40%);
+  border-radius: 4px;
+}
+#dep:focus{
+  border: 1px solid hsl(0, 0%, 40%);
+}
 
-#dep{
- padding: 15px 8px;
- font-size: 1.1rem;
- color: hsl(0, 0%, 50%);
- border: 1px solid hsl(0, 0%, 50%);
+.div {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  margin-top: 5%;
+  -webkit-box-shadow: 6px 4px 16px 3px rgba(0, 0, 0, 0.64);
+  -moz-box-shadow: 6px 4px 16px 3px rgba(0, 0, 0, 0.64);
+  box-shadow: 6px 4px 16px 3px rgba(0, 0, 0, 0.64);
 }
-.div{
-    background-color: whitesmoke;
-    padding: 20px 30px;
-    border-radius: 10px;
-    margin-top: 5%;
-    -webkit-box-shadow: 6px 4px 16px 3px rgba(0,0,0,0.64);
--moz-box-shadow: 6px 4px 16px 3px rgba(0,0,0,0.64);
-box-shadow: 6px 4px 16px 3px rgba(0,0,0,0.64);
+.dash{
+  display: flex;
 }
-body{
-background-image: url("./images/bg.jpg");
-background-repeat: no-repeat;
+.dashDiv{
+  margin-left: 30px;
+  background-color: white;
+  width: 75%;
+}
+body {
+  background-color: black !important;
+  /* background-image: url("./images/bg.jpg"); */
+  /* background-repeat: no-repeat; */
 }
