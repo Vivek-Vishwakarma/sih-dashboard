@@ -16,7 +16,7 @@ import axios from "axios";
 const theme = createTheme();
 
 export default function Signup() {
-  const history = useNavigate()
+  const history = useNavigate();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -31,8 +31,8 @@ export default function Signup() {
       .post("http://localhost:5000/api/auth/register", user)
       .then((response) => {
         console.log(response);
-        history("/dashboard")
-        localStorage.setItem("token", response.data.token)
+        history("/dashboard");
+        localStorage.setItem("token", response.data.token);
       })
       .catch((error) => {
         console.log(error);
@@ -101,24 +101,26 @@ export default function Signup() {
                 />
               </Grid>
               <Grid item xs={12}>
-              <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-helper-label">Department *</InputLabel>
-                <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={user.department}
-                  fullWidth
-                  name="department"
-                  label="Department *"
-                  onChange={handleChange}
-                >
-                  <MenuItem value="">
-                    <em>Department *</em>
-                  </MenuItem>
-                  <MenuItem value="cmpn">CMPN</MenuItem>
-                  <MenuItem value="it">IT</MenuItem>
-                  <MenuItem value="extc">EXTC</MenuItem>
-                </Select>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-helper-label">
+                    Department *
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-helper-label"
+                    id="demo-simple-select-helper"
+                    value={user.department}
+                    fullWidth
+                    name="department"
+                    label="Department *"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="">
+                      <em>Department *</em>
+                    </MenuItem>
+                    <MenuItem value="cmpn">CMPN</MenuItem>
+                    <MenuItem value="it">IT</MenuItem>
+                    <MenuItem value="extc">EXTC</MenuItem>
+                  </Select>
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
@@ -133,6 +135,26 @@ export default function Signup() {
                   autoComplete="off"
                 />
               </Grid>
+              <Grid item xs={12}>
+                <InputLabel id="demo-simple-select-helper-label">
+                  Role *
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={user.isApprover}
+                  fullWidth
+                  name="isApprover"
+                  label="Role *"
+                  onChange={handleChange}
+                >
+                  <MenuItem value="">
+                    <em>Role *</em>
+                  </MenuItem>
+                  <MenuItem value={true}>Approver</MenuItem>
+                  <MenuItem value={false}>User</MenuItem>
+                </Select>
+              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -146,7 +168,7 @@ export default function Signup() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 Already have an account?{" "}
-                <Link to="/login" variant="body2">
+                <Link to="/" variant="body2">
                   Sign in
                 </Link>
               </Grid>
