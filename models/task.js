@@ -13,8 +13,8 @@ const testSchema = new Schema({
         type : String,
     },
     department : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "user"
+        type : String,
+        required : true
     },
     status : {
         type : String,

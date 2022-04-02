@@ -41,8 +41,7 @@ const Newtask = () => {
         formData,
         {
           headers: {
-            "x-auth-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDgwMWRiODA4Y2QyYzhlYmUxMGE1NCIsImlhdCI6MTY0ODg4NjIzNn0.3dZDTn0R02ky7RBXYxOJzMAndSgaO1UM-_NJPPygv4c",
+            "x-auth-token": localStorage.getItem("token")
           },
         }
       );
@@ -53,7 +52,7 @@ const Newtask = () => {
     }
   };
   const handleFile = (e) => {
-    setTask({ ...task, file: e.target.files[0] });
+    setTask({ ...task, file: e.target.files[0]});
   };
   const handleChange = (e) => {
     setTask({ ...task, [e.target.name]: e.target.value });

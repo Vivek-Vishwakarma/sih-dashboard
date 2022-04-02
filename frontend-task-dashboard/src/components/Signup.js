@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -13,10 +13,10 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import axios from "axios";
-
 const theme = createTheme();
 
 export default function Signup() {
+  const history = useNavigate()
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -31,6 +31,8 @@ export default function Signup() {
       .post("http://localhost:5000/api/auth/register", user)
       .then((response) => {
         console.log(response);
+        history("/dashboard")
+        localStorage.setItem("token", response.data.token)
       })
       .catch((error) => {
         console.log(error);

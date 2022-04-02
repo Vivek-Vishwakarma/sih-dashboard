@@ -1,0 +1,1 @@
+xst -intstyle ise -ifn "/home/ise/Door Lock/doorlock/b_door_lock.xst" -ofn "/home/ise/Door Lock/doorlock/b_door_lock.syr" 

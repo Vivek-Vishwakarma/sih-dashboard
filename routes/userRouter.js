@@ -67,4 +67,9 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/allusers", async (req,res)=>{
+  const allUsers = await User.find({})
+  res.send(allUsers)
+})
+
 module.exports = router

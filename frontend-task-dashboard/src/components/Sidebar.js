@@ -4,7 +4,6 @@ import {
   Menu,
   MenuItem,
   SubMenu,
-  SidebarFooter,
   SidebarHeader,
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -33,16 +32,6 @@ const Sidebar = () => {
           <MenuItem>Component 2</MenuItem>
         </SubMenu>
       </Menu>
-      {/* <SidebarFooter style={{textAlign: "center", marginTop : "20px", marginBottom : "20px"}}>
-        Made by{" "}
-        <a
-          href="https://github.com/Vivek-Vishwakarma"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Vivek Vishwakarma
-        </a>
-      </SidebarFooter> */}
     </ProSidebar>
   );
 };

@@ -23,7 +23,7 @@ export default function Login() {
       .post("http://localhost:5000/api/auth/login", user)
       .then((response) => {
         localStorage.setItem("token" , response.data.token)
-        history("/")
+        history("/dashboard")
         console.log(response)
       })
       .catch((error) => {
