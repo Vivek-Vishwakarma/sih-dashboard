@@ -27,7 +27,7 @@ router.post("/newtask", auth, upload.single("file"), async (req, res) => {
       success,
       updatedAt,
       status,
-      department,
+      department : req.user.department,
       file,
       user: req.user.id
     });

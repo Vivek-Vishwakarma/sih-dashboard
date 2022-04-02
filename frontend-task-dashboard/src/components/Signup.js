@@ -11,7 +11,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { FormControl, InputLabel, MenuItem } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import axios from "axios";
 
 const theme = createTheme();
@@ -40,20 +40,20 @@ export default function Signup() {
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  const departments = [
-    {
-      key: 0,
-      value: "CMPN",
-    },
-    {
-      key: 1,
-      value: "IT",
-    },
-    {
-      key: 1,
-      value: "EXTC",
-    },
-  ];
+  // const departments = [
+  //   {
+  //     key: 0,
+  //     value: "CMPN",
+  //   },
+  //   {
+  //     key: 1,
+  //     value: "IT",
+  //   },
+  //   {
+  //     key: 1,
+  //     value: "EXTC",
+  //   },
+  // ];
 
   return (
     <ThemeProvider theme={theme}>
@@ -99,22 +99,25 @@ export default function Signup() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  select
+              <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-helper-label">Department *</InputLabel>
+                <Select
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={user.department}
                   fullWidth
-                  id="department"
-                  label="Department"
-                  defaultValue="CMPN"
-
+                  name="department"
+                  label="Department *"
                   onChange={handleChange}
-                  variant="outlined"
                 >
-                  {departments.map((ack) => (
-                    <MenuItem key={ack.key} value={ack.value}>
-                      {ack.value}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  <MenuItem value="">
+                    <em>Department *</em>
+                  </MenuItem>
+                  <MenuItem value="cmpn">CMPN</MenuItem>
+                  <MenuItem value="it">IT</MenuItem>
+                  <MenuItem value="extc">EXTC</MenuItem>
+                </Select>
+                </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <TextField

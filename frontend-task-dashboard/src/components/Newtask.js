@@ -1,73 +1,156 @@
-
-import Sidebar from './Sidebar'
 import React, { useState } from "react";
-
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import "../App.css";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  FormControl,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import axios from "axios";
+import Sidebar from "./Sidebar";
 const Newtask = () => {
   const [task, setTask] = useState({
     filename: "",
     description: "",
-    status: "",
-    department: "",
     file: "",
-    priority : ""
+    department: "",
+    priority: "",
   });
+  const theme = createTheme();
   const postFile = async (e) => {
     e.preventDefault();
-    let formData = new FormData()
-    formData.append("filename", task.filename)
-    formData.append("description", task.description)
-    formData.append("status", task.status)
-    formData.append("file", task.file)
-    formData.append("priority", task.priority)
-    formData.append("department", task.department)
+    let formData = new FormData();
+    formData.append("filename", task.filename);
+    formData.append("description", task.description);
+    formData.append("status", task.status);
+    formData.append("file", task.file);
+    formData.append("priority", task.priority);
+    formData.append("department", task.department);
     try {
       const response = await axios.post(
         "http://localhost:5000/api/task/newtask",
         formData,
         {
           headers: {
-            "x-auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyM2YyYjRmNWU5MDMwMGU3ODU0MmRhZCIsImlhdCI6MTY0ODMwNzE5Nn0.nVnnDPUvMhFbX3GT-2ecEc808-PTfRNakOTCiL1zb78",
+            "x-auth-token":
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDgwMWRiODA4Y2QyYzhlYmUxMGE1NCIsImlhdCI6MTY0ODg4NjIzNn0.3dZDTn0R02ky7RBXYxOJzMAndSgaO1UM-_NJPPygv4c",
           },
         }
       );
-      console.log(response)
-      alert("Profile Added Sucessfully !!")
+      console.log(response);
+      alert("Profile Added Sucessfully !!");
     } catch (error) {
       console.log(error);
     }
   };
   const handleFile = (e) => {
-    setTask({ ...task, file: e.target.files[0]});
+    setTask({ ...task, file: e.target.files[0] });
   };
   const handleChange = (e) => {
     setTask({ ...task, [e.target.name]: e.target.value });
   };
   return (
-    <div className="dash">
-      <aside className="side">
-        <Sidebar />
-      </aside>
-      <div className="dashDiv">
-        <form onSubmit={postFile}>
-          <input onChange={handleChange} name="filename" type="text" placeholder='name' />
-          <input onChange={handleChange} name="description"  type="text" placeholder='desc' />
-          <select onChange={handleChange}  name="priority" id="priority">
-            <option value="High">High</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-          </select>
-          <select onChange={handleChange} name="department" id="dep">
-            <option value="IT">IT</option>
-            <option value="CMPN">CMPN</option>
-            <option value="EXTC">EXTC</option>
-          </select>
-          <input type="file" name='file' onChange={handleFile}/>
-          <button type='submit'>submit</button>
-          </form>
+    <ThemeProvider theme={theme}>
+      <div className="dash">
+        <aside className="side">
+          <Sidebar />
+        </aside>
+        <Box className="dashDiv">
+          <Container className="div" component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography component="h1" variant="h5">
+                Add New File
+              </Typography>
+              <Box component="form" onSubmit={postFile} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      autoComplete="off"
+                      name="filename"
+                      required
+                      fullWidth
+                      onChange={handleChange}
+                      id="firstName"
+                      label="File Name"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      autoComplete="off"
+                      name="description"
+                      required
+                      fullWidth
+                      onChange={handleChange}
+                      id="firstName"
+                      label="File Description"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-helper-label">
+                        Priority *
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-helper-label"
+                        id="demo-simple-select-helper"
+                        value={task.priority}
+                        fullWidth
+                        name="priority"
+                        label="Priority *"
+                        onChange={handleChange}
+                      >
+                        <MenuItem value="">
+                          <em>Priority *</em>
+                        </MenuItem>
+                        <MenuItem value="high">High</MenuItem>
+                        <MenuItem value="low">Low</MenuItem>
+                        <MenuItem value="moderate">Moderate</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Input
+                      name="file"
+                      type="file"
+                      required
+                      fullWidth
+                      onChange={handleFile}
+                    />
+                  </Grid>
+                </Grid>
+                <Button
+                  type="submit"
+                  fullWidth
+                  onSubmit={postFile}
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Add File
+                </Button>
+              </Box>
+            </Box>
+          </Container>
+        </Box>
       </div>
-    </div>
-  )
-}
+    </ThemeProvider>
+  );
+};
 
-export default Newtask
+export default Newtask;

@@ -21,6 +21,7 @@ app.use(express.json());
 
 app.use("/api/auth", require("./routes/userRouter"));
 app.use("/api/task", require("./routes/taskRouter"));
+app.use("/api/admin", require("./routes/adminRouter"));
 
 app.listen(port, () => {
     console.log(`Server is running at port ${port}`);

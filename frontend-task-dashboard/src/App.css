@@ -1,14 +1,8 @@
-#dep {
-  padding: 15px 8px;
-  font-size: 1rem;
-  color: hsl(0, 0%, 50%);
-  border: 1px solid hsl(0, 0%, 40%);
-  border-radius: 4px;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-#dep:focus{
-  border: 1px solid hsl(0, 0%, 40%);
-}
-
 .div {
   background-color: white;
   padding: 20px 30px;
@@ -23,12 +17,11 @@
   min-height: 100vh;
 }
 .dashDiv{
-  margin-left: 30px;
   background-color: white;
   width: 75%;
 }
-body {
+/* body {
   background-color: black !important;
-  /* background-image: url("./images/bg.jpg"); */
-  /* background-repeat: no-repeat; */
-}
+  background-image: url("./images/bg.jpg");
+  background-repeat: no-repeat;
+} */

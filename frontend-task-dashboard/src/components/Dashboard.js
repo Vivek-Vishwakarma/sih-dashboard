@@ -1,18 +1,22 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 import "../App.css";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+const theme = createTheme();
 const Dashboard = () => {
   return (
-    <div className="dash">
-      <aside className="side">
-        <Sidebar />
-      </aside>
-      <Box className="dashDiv">
-        <h1>Welcome to Dashboard</h1>
-      </Box>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="dash">
+        <aside className="side">
+          <Sidebar />
+        </aside>
+        <Box className="dashDiv">
+          
+        </Box>
+      </div>
+    </ThemeProvider>
   );
 };
 
