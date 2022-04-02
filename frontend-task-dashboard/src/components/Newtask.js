@@ -41,7 +41,7 @@ const Newtask = () => {
         formData,
         {
           headers: {
-            "x-auth-token": localStorage.getItem("token")
+            "x-auth-token": localStorage.getItem("token"),
           },
         }
       );
@@ -52,7 +52,7 @@ const Newtask = () => {
     }
   };
   const handleFile = (e) => {
-    setTask({ ...task, file: e.target.files[0]});
+    setTask({ ...task, file: e.target.files[0] });
   };
   const handleChange = (e) => {
     setTask({ ...task, [e.target.name]: e.target.value });
