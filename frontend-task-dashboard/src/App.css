@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -12,11 +12,11 @@
   -moz-box-shadow: 6px 4px 16px 3px rgba(0, 0, 0, 0.64);
   box-shadow: 6px 4px 16px 3px rgba(0, 0, 0, 0.64);
 }
-.dash{
+.dash {
   display: flex;
   min-height: 100vh;
 }
-.dashDiv{
+.dashDiv {
   background-color: white;
   width: 75%;
 }
@@ -25,3 +25,11 @@
   background-image: url("./images/bg.jpg");
   background-repeat: no-repeat;
 } */
+.table {
+  border-radius: 10px !important;
+  margin-top: 2%;
+  margin-left: 10px;
+  -webkit-box-shadow: 10px 10px 20px -5px rgba(0,0,0,0.75) !important;
+  -moz-box-shadow: 10px 10px 20px -5px rgba(0,0,0,0.75) !important;
+  box-shadow: 10px 10px 20px -5px rgba(0,0,0,0.75) !important;
+}

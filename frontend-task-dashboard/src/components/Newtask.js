@@ -118,9 +118,9 @@ const Newtask = () => {
                         <MenuItem value="">
                           <em>Priority *</em>
                         </MenuItem>
-                        <MenuItem value="high">High</MenuItem>
-                        <MenuItem value="low">Low</MenuItem>
-                        <MenuItem value="moderate">Moderate</MenuItem>
+                        <MenuItem value="High">High</MenuItem>
+                        <MenuItem value="Moderate">Moderate</MenuItem>
+                        <MenuItem value="Low">Low</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
