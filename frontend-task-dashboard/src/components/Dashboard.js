@@ -29,6 +29,7 @@ const Dashboard = () => {
   const [search, setSearch] = useState("");
   const [priority, setPriority] = useState("");
   const [rerender, setRerender] = useState(false);
+  const [user, setUser] = useState("");
   const getTasks = () => {
     try {
       axios
@@ -39,7 +40,8 @@ const Dashboard = () => {
         })
         .then((response) => {
           console.log(response);
-          setTask(response.data);
+          setTask(response.data.task);
+          setUser(response.data.user)
         });
     } catch (error) {
       console.log(error);
@@ -81,7 +83,7 @@ const Dashboard = () => {
       </aside>
       <Box className="dashDiv">
         <Typography variant="h4" align="center" sx={{ mt: 5 }}>
-          All Files
+          Welcome {user}
         </Typography>
         <Container sx={{ mt: 5 }}>
           <TextField

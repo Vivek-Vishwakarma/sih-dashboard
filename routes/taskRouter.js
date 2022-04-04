@@ -43,7 +43,8 @@ router.post("/newtask", auth, upload.single("file"), async (req, res) => {
 router.get("/tasks", auth , async (req,res) => {
   try {
     const tasks = await Task.find({user : req.user.id})
-    res.send(tasks)
+    const currentUser = await Users.findById(req.user.id)
+    res.send({task : tasks, user : currentUser.name})
   } catch (error) {
     console.log(error)
   }
