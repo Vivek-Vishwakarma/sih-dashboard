@@ -56,7 +56,7 @@ router.delete("/delete/:id", auth ,async (req, res) => {
     if (!deleteTask) {
       return res.status(404).send("Task not found");
     }
-    res.send({ success: "Task has been detleted", deleteTask : deleteTask});
+    res.send({ success: true, deleteTask : deleteTask});
   } catch (error) {
     res.send(error)
   }

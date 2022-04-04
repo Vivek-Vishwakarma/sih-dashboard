@@ -1,7 +1,16 @@
-* {
+*,*::before,*::after{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+.proSidebar{
+  font-family: 'Roboto', sans-serif;
+}
+.heading{
+  margin: 20px 0px;
+  text-align: center;
+  padding: 0px;
+  font-size: 1.2rem;
 }
 .div {
   background-color: white;

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import { AiFillEdit } from "react-icons/ai";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import "../App.css";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import {
@@ -16,7 +18,22 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Sidebar from "./Sidebar";
-const Newtask = () => {
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 700,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+export default function Popup() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [task, setTask] = useState({
     filename: "",
     description: "",
@@ -39,7 +56,7 @@ const Newtask = () => {
         formData,
         {
           headers: {
-            "x-auth-token": localStorage.getItem("token")
+            "x-auth-token": localStorage.getItem("token"),
           },
         }
       );
@@ -50,18 +67,25 @@ const Newtask = () => {
     }
   };
   const handleFile = (e) => {
-    setTask({ ...task, file: e.target.files[0]});
+    setTask({ ...task, file: e.target.files[0] });
   };
   const handleChange = (e) => {
     setTask({ ...task, [e.target.name]: e.target.value });
   };
   return (
-
-      <div className="dash">
-        <aside className="side">
-          <Sidebar />
-        </aside>
-        <Box className="dashDiv">
+    <div>
+      <AiFillEdit
+        onClick={handleOpen}
+        fontSize={30}
+        style={{ cursor: "pointer", color: "#2e7d32" }}
+      />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
           <Container className="div" component="main" maxWidth="xs">
             <CssBaseline />
             <Box
@@ -72,7 +96,7 @@ const Newtask = () => {
               }}
             >
               <Typography component="h1" variant="h5">
-                Add New File
+                Edit File
               </Typography>
               <Box component="form" onSubmit={postFile} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
@@ -145,8 +169,7 @@ const Newtask = () => {
             </Box>
           </Container>
         </Box>
-      </div>
+      </Modal>
+    </div>
   );
-};
-
-export default Newtask;
+}

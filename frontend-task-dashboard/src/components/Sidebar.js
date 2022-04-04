@@ -11,11 +11,12 @@ import { FaHeart } from "react-icons/fa";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import "../App.css"
 const Sidebar = () => {
   return (
-    <ProSidebar>
+    <ProSidebar className="proSidebar">
       <SidebarHeader>
-        <h3 style={{ textAlign: "center", margin: 20 }}>File Manager</h3>
+        <h3 className="heading"> File Manager</h3>
       </SidebarHeader>
       <Menu iconShape="square">
         <MenuItem
