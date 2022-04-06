@@ -14,16 +14,17 @@ import axios from "axios";
 import "../App.css";
 const theme = createTheme();
 
-export default function Login() {
+export default function AdminLog() {
   const history = useNavigate();
-  const [user, setUser] = useState({ email: "", password: "" });
-  const postLogin = async (event) => {
+  const [admin, setAdmin] = useState({enteredPass: ""});
+  const adminLogin = async (event) => {
     event.preventDefault();
     await axios
-      .post("http://localhost:5000/api/auth/login", user)
+      .post("http://localhost:5000/api/admin/login",admin)
       .then((response) => {
-        localStorage.setItem("token", response.data.token);
-        history("/dashboard");
+        localStorage.setItem("admin", response.data.success);
+        history("/admin/dashboard");
+        console.log(admin)
         console.log(response);
       })
       .catch((error) => {
@@ -31,9 +32,8 @@ export default function Login() {
       });
   };
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setAdmin({ ...admin, [e.target.name]: e.target.value });
   };
-
   return (
     <ThemeProvider theme={theme}>
       <Container className="div" component="main" maxWidth="sm">
@@ -49,26 +49,15 @@ export default function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Log in
+            Admin Log in
           </Typography>
-          <Box component="form" onSubmit={postLogin} sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={adminLogin} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
               onChange={handleChange}
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="off"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              onChange={handleChange}
-              name="password"
+              name="enteredPass"
               label="Password"
               type="password"
               id="password"
@@ -85,8 +74,8 @@ export default function Login() {
             <div style={{ display: "flex" }}>
               <Grid container justifyContent="flex-start">
                 <Grid item>
-                  <Link to="/register" variant="body2">
-                    Admin Login
+                  <Link to="/" variant="body2">
+                    User Login
                   </Link>
                 </Grid>
               </Grid>

@@ -22,8 +22,10 @@ import axios from "axios";
 import { MenuItem } from "@mui/material";
 import Popup from "./Popup";
 import { AiTwotoneDelete } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+const AdminDash = () => {
+  const history = useNavigate();
   const [task, setTask] = useState();
   const [filterStatus, setFilterStatus] = useState("");
   const [search, setSearch] = useState("");
@@ -33,13 +35,10 @@ const Dashboard = () => {
   const getTasks = () => {
     try {
       axios
-        .get("http://localhost:5000/api/task/tasks", {
-          headers: {
-            "x-auth-token": localStorage.getItem("token"),
-          },
-        })
+        .get("http://localhost:5000/api/admin/dashboard")
         .then((response) => {
           console.log(response);
+          setRerender(!rerender)
           setTask(response.data.task);
           setUser(response.data.user)
         });
@@ -47,43 +46,25 @@ const Dashboard = () => {
       console.log(error);
     }
   };
-  const deleteTask = (e) => {
-    var results = window.confirm("Are u sure u want to delete this file");
-    if (results) {
-      axios
-        .delete(`http://localhost:5000/api/task/delete/${e}`, {
-          headers: {
-            "x-auth-token": localStorage.getItem("token"),
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          setRerender(!rerender);
-          alert("Deleted succesfully")
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    else{
-      console.log("okay")
-    }
-  };
-
   useEffect(() => {
-    getTasks();
-  }, [rerender]);
+    if(!localStorage.getItem("admin")){
+      alert("Please Login")
+      history("/")
+    }
+    getTasks()
+  }, []);
+
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   return (
     <div className="dash">
       <aside className="side">
-        <Sidebar user={true} />
+        <Sidebar user={false}/>
       </aside>
       <Box className="dashDiv">
         <Typography variant="h4" align="center" sx={{ mt: 5 }}>
-          Welcome {user}
+          Welcome Admin
         </Typography>
         <Container sx={{ mt: 5 }}>
           <TextField
@@ -137,7 +118,6 @@ const Dashboard = () => {
                 <TableCell align="center">Approver Name</TableCell>
                 <TableCell align="center">Status</TableCell>
                 <TableCell align="center">File</TableCell>
-                <TableCell align="center">Edit/Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -227,22 +207,6 @@ const Dashboard = () => {
                             View
                           </a>
                         </TableCell>
-                        <TableCell
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-evenly",
-                          }}
-                          align="center"
-                        >
-                          <Popup />
-                          <AiTwotoneDelete
-                            onClick={() => {
-                              deleteTask(element._id);
-                            }}
-                            style={{ cursor: "pointer", color: "#d32f2f" }}
-                            fontSize={30}
-                          />
-                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -254,4 +218,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDash;

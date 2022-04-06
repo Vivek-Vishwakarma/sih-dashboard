@@ -59,7 +59,7 @@ export default function Signup() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container className="div" component="main" maxWidth="xs">
+      <Container className="div" component="main" maxWidth="sm">
         <CssBaseline />
         <Box
           sx={{
