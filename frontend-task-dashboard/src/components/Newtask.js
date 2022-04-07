@@ -59,7 +59,7 @@ const Newtask = () => {
 
       <div className="dash">
         <aside className="side">
-          <Sidebar />
+          <Sidebar user={true} />
         </aside>
         <Box className="dashDiv">
           <Container className="div" component="main" maxWidth="xs">
