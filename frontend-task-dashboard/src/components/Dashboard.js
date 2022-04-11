@@ -79,7 +79,7 @@ const Dashboard = () => {
   return (
     <div className="dash">
       <aside className="side">
-        <Sidebar user={true} />
+        <Sidebar user={true} dashPath="/dashboard" newTaskPath="/newtask"/>
       </aside>
       <Box className="dashDiv">
         <Typography variant="h4" align="center" sx={{ mt: 5 }}>

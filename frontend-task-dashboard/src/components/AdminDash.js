@@ -60,7 +60,7 @@ const AdminDash = () => {
   return (
     <div className="dash">
       <aside className="side">
-        <Sidebar user={false}/>
+        <Sidebar user={false} dashPath="/admin/dashboard"/>
       </aside>
       <Box className="dashDiv">
         <Typography variant="h4" align="center" sx={{ mt: 5 }}>

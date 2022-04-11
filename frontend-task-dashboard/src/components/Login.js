@@ -85,7 +85,7 @@ export default function Login() {
             <div style={{ display: "flex" }}>
               <Grid container justifyContent="flex-start">
                 <Grid item>
-                  <Link to="/admin/login" variant="body2">
+                  <Link to="/admin" variant="body2">
                     Admin Login
                   </Link>
                 </Grid>

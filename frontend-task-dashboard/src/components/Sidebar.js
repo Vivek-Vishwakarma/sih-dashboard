@@ -10,11 +10,20 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { FaHeart } from "react-icons/fa";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {FaSkullCrossbones} from "react-icons/fa"
 import "../App.css"
-const Sidebar = ({user}) => {
+import { Button } from "@mui/material";
+const Sidebar = ({user, dashPath, newTaskPath}) => {
+  const history = useNavigate()
+  const logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("admin")
+    history("/")
+  }
+
   return (
-    <ProSidebar className="proSidebar">
+    <ProSidebar className="proSidebar" collapsedWidth="220px" collapsed>
       <SidebarHeader>
         <h3 className="heading"> File Manager</h3>
       </SidebarHeader>
@@ -23,11 +32,17 @@ const Sidebar = ({user}) => {
           style={{ marginTop: 5 }}
           icon={<BsFillArrowRightCircleFill />}
         >
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to={dashPath}>Dashboard</Link>
         </MenuItem>
         {user && <MenuItem style={{ marginTop: 5 }} icon={<AiFillPlusCircle />}>
-          <Link to="/newtask">New File</Link>
+          <Link to={newTaskPath}>New File</Link>
         </MenuItem>}
+        <MenuItem
+          style={{ marginTop: 5 }}
+          icon={<FaSkullCrossbones />}
+        >
+          <Button color="error" variant="contained" onClick={logout}>Logout</Button>
+        </MenuItem>
         <SubMenu style={{ marginTop: 5 }} title="Components" icon={<FaHeart />}>
           <MenuItem>Component 1</MenuItem>
           <MenuItem>Component 2</MenuItem>
