@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -33,7 +33,11 @@ export default function Login() {
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-
+useEffect(() => {
+  if(localStorage.getItem("token")){
+    history("/dashboard")
+  }
+}, []);
   return (
     <ThemeProvider theme={theme}>
       <Container className="div" component="main" maxWidth="sm">
