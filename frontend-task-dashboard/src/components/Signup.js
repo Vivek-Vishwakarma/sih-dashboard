@@ -13,6 +13,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import axios from "axios";
+import Error from "./Error";
 const theme = createTheme();
 
 export default function Signup() {
@@ -23,6 +24,7 @@ export default function Signup() {
     password: "",
     department: "",
   });
+  const [error, setError] = useState("");
 
   const postRegister = async (e) => {
     e.preventDefault();
@@ -30,9 +32,14 @@ export default function Signup() {
     await axios
       .post("http://localhost:5000/api/auth/register", user)
       .then((response) => {
-        console.log(response);
-        history("/dashboard")
-        localStorage.setItem("token", response.data.token)
+        if(response.data.success){
+          console.log(response);
+          history("/dashboard")
+          localStorage.setItem("token", response.data.token)
+        }
+        else{
+          setError(response.data.message)
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -42,23 +49,12 @@ export default function Signup() {
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  // const departments = [
-  //   {
-  //     key: 0,
-  //     value: "CMPN",
-  //   },
-  //   {
-  //     key: 1,
-  //     value: "IT",
-  //   },
-  //   {
-  //     key: 1,
-  //     value: "EXTC",
-  //   },
-  // ];
+
 
   return (
     <ThemeProvider theme={theme}>
+            {error && <Error message={error} />}
+
       <Container className="div" component="main" maxWidth="sm">
         <CssBaseline />
         <Box

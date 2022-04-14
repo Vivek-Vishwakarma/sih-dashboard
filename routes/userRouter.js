@@ -12,8 +12,7 @@ router.post("/register", async (req, res) => {
     const passwordHash = await bcrypt.hash(password, salt);
     if (user) {
       res
-        .status(400)
-        .send({ sucess: false, error: true, message: "User already exist" });
+        .send({ success: false, error: true, message: "User already exist" });
     } else {
       user = await User.create({
         name: name,
@@ -22,13 +21,12 @@ router.post("/register", async (req, res) => {
         password: passwordHash,
       });
       const token = jwt.sign({ id: user._id }, "secret");
-      res.send({ sucess: true, token: token, user });
+      res.send({ success: true, token: token, user });
     }
   } catch (error) {
     res
-      .status(400)
       .send({
-        sucess: false,
+        success: false,
         error: true,
         message: "Something wrong with your creds",
       });
@@ -42,16 +40,14 @@ router.post("/login", async (req, res) => {
     let user = await User.findOne({ email: email });
     if (!user)
       return res
-        .status(400)
-        .send({ sucess: false, error: true, message: "User doesn't exist" });
+        .send({ success: false, error: true, message: "Please enter correct credentials" });
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
       return res
-        .status(400)
-        .send({ sucess: false, error: true, message: "Incorrect password" });
+        .send({ success: false, error: true, message: "Incorrect password" });
     const token = jwt.sign({ id: user._id }, "secret");
     res.send({
-      sucess: true,
+      success: true,
       token: token,
       name: user.name,
       email: user.email,
@@ -60,7 +56,7 @@ router.post("/login", async (req, res) => {
     res
       .status(400)
       .send({
-        sucess: false,
+        success: false,
         error: true,
         message: "cannot login something wrong",
       });

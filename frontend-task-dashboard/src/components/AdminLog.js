@@ -12,20 +12,28 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
+import Error from "./Error";
 const theme = createTheme();
 
 export default function AdminLog() {
   const history = useNavigate();
   const [admin, setAdmin] = useState({enteredPass: ""});
+  const [error, setError] = useState("");
   const adminLogin = async (event) => {
     event.preventDefault();
     await axios
       .post("http://localhost:5000/api/admin/login",admin)
       .then((response) => {
-        localStorage.setItem("admin", response.data.success);
-        history("/admin/dashboard");
-        console.log(admin)
-        console.log(response);
+        if(response.data.success){
+          localStorage.setItem("admin", response.data.success);
+          history("/admin/dashboard");
+          console.log(admin)
+          console.log(response);
+        }
+        else{
+          setError(response.data.message)
+          console.log(error)
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -36,6 +44,7 @@ export default function AdminLog() {
   };
   return (
     <ThemeProvider theme={theme}>
+      {error && <Error message={error} />}
       <Container className="div" component="main" maxWidth="sm">
         <CssBaseline />
         <Box

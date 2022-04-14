@@ -23,7 +23,7 @@ router.post("/login", async (req, res) => {
     if (enteredPass === password) {
       res.send({ success: true, message: "Admin logged in sucessfully" });
     } else {
-      res.send("error");
+      res.send({success : false, message : "Wrong Password"});
     }
   } catch (error) {
     console.log(error);

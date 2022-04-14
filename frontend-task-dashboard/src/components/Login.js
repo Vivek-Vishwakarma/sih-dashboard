@@ -12,19 +12,27 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
+import Error from "./Error";
 const theme = createTheme();
 
 export default function Login() {
   const history = useNavigate();
   const [user, setUser] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   const postLogin = async (event) => {
     event.preventDefault();
     await axios
       .post("http://localhost:5000/api/auth/login", user)
       .then((response) => {
-        localStorage.setItem("token", response.data.token);
-        history("/dashboard");
-        console.log(response);
+        if(response.data.success){
+          localStorage.setItem("token", response.data.token);
+          history("/dashboard");
+          console.log(response);
+        }
+        else{
+          setError(response.data.message)
+          console.log(error)
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -33,13 +41,14 @@ export default function Login() {
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-useEffect(() => {
-  if(localStorage.getItem("token")){
-    history("/dashboard")
-  }
-}, []);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      history("/dashboard");
+    }
+  }, []);
   return (
     <ThemeProvider theme={theme}>
+      {error && <Error message={error} />}
       <Container className="div" component="main" maxWidth="sm">
         <CssBaseline />
         <Box
