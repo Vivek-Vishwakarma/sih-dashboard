@@ -209,7 +209,7 @@ const Dashboard = () => {
                             fontWeight: "bold",
                           }}
                         >
-                          {element.success ? "Evaluated" : "Not Evaluated"}
+                          {element.success ? "Evaluated" : "Not Assigned"}
                         </TableCell>
                         <TableCell align="center">
                           <Chip

@@ -86,7 +86,7 @@ export default function Popup() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Container className="div" component="main" maxWidth="xs">
+          <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
               sx={{

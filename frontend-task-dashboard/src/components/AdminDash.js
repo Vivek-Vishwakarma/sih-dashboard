@@ -20,9 +20,9 @@ import {
 import Chip from "@mui/material/Chip";
 import axios from "axios";
 import { MenuItem } from "@mui/material";
-import Popup from "./Popup";
 import { AiTwotoneDelete } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Adminpop from "./Adminpop";
 
 const AdminDash = () => {
   const history = useNavigate();
@@ -30,6 +30,8 @@ const AdminDash = () => {
   const [filterStatus, setFilterStatus] = useState("");
   const [search, setSearch] = useState("");
   const [priority, setPriority] = useState("");
+  const [dep, setDep] = useState("");
+  const [approve, setApprove] = useState("");
   const [rerender, setRerender] = useState(false);
   const [user, setUser] = useState("");
   const getTasks = () => {
@@ -38,29 +40,44 @@ const AdminDash = () => {
         .get("http://localhost:5000/api/admin/dashboard")
         .then((response) => {
           console.log(response);
-          setRerender(!rerender)
+          setRerender(!rerender);
           setTask(response.data.task);
-          setUser(response.data.user)
+          setUser(response.data.user);
         });
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    if(!localStorage.getItem("admin")){
-      alert("Please Login")
-      history("/")
+    if (!localStorage.getItem("admin")) {
+      alert("Please Login");
+      history("/");
     }
-    getTasks()
+    getTasks();
   }, []);
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  const Evaluate = (e) => {
+    try {
+      axios
+        .post(`http://localhost:5000/api/admin/approve/${e}`, approve)
+        .then((response) => {
+          console.log(response);
+          setRerender(!rerender);
+          console.log("edited");
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="dash">
       <aside className="side">
-        <Sidebar user={false} dashPath="/admin/dashboard"/>
+        <Sidebar user={false} dashPath="/admin/dashboard" />
       </aside>
       <Box className="dashDiv">
         <Typography variant="h4" align="center" sx={{ mt: 5 }}>
@@ -107,6 +124,23 @@ const AdminDash = () => {
               <MenuItem value="Low">Low</MenuItem>
             </Select>
           </FormControl>
+          <FormControl sx={{ width: "200px", marginLeft: "20px" }}>
+            <InputLabel id="demo-simple-select-label">Department</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Department"
+              value={dep}
+              onChange={(e) => {
+                setDep(e.target.value);
+              }}
+            >
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value="it">IT</MenuItem>
+              <MenuItem value="cmpn">CMPN</MenuItem>
+              <MenuItem value="extc">EXTC</MenuItem>
+            </Select>
+          </FormControl>
         </Container>
         <TableContainer className="table" component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="simple table">
@@ -115,9 +149,9 @@ const AdminDash = () => {
                 <TableCell align="center">Name</TableCell>
                 <TableCell align="center">Description</TableCell>
                 <TableCell align="center">Priority</TableCell>
-                <TableCell align="center">Approver Name</TableCell>
                 <TableCell align="center">Status</TableCell>
                 <TableCell align="center">File</TableCell>
+                <TableCell align="center">Evaluate</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -152,6 +186,15 @@ const AdminDash = () => {
                       return e;
                     }
                   })
+                  // eslint-disable-next-line
+                  .filter((e) => {
+                    if (dep === "") return e;
+                    else if (e.department === dep) {
+                      return e;
+                    } else if (e.department === dep) {
+                      return e;
+                    }
+                  })
                   .map((element) => {
                     return (
                       <TableRow
@@ -179,18 +222,6 @@ const AdminDash = () => {
                             }
                           />
                         </TableCell>
-
-                        <TableCell
-                          align="center"
-                          style={{
-                            color: element.success
-                              ? "#2e7d32"
-                              : "rgb(211 47 47)",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          {element.success ? "Evaluated" : "Not Evaluated"}
-                        </TableCell>
                         <TableCell align="center">
                           <Chip
                             label={element.status}
@@ -206,6 +237,34 @@ const AdminDash = () => {
                           >
                             View
                           </a>
+                        </TableCell>
+                        {/* <TableCell align="center">
+                          <FormControl
+                            sx={{ width: "150px" }}
+                          >
+                            <InputLabel id="demo-simple-select-label">
+                              Evaluate
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              label="Evaluate"
+                              name="status"
+                              value={approve}
+                              onChange={(e) => {
+                                setApprove(e.target.value)
+                                Evaluate(element._id)
+                              }}
+                            >
+                              <MenuItem value="approved">Approve</MenuItem>
+                              <MenuItem value="desk 1">Desk 1</MenuItem>
+                              <MenuItem value="desk 2">Desk 2</MenuItem>
+                              <MenuItem value="desk 3">Desk 3</MenuItem>
+                            </Select>
+                          </FormControl>
+                        </TableCell> */}
+                        <TableCell align="center">
+                            <Adminpop selectedTask={element._id} />
                         </TableCell>
                       </TableRow>
                     );

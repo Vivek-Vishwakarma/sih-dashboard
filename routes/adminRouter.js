@@ -23,11 +23,30 @@ router.post("/login", async (req, res) => {
     if (enteredPass === password) {
       res.send({ success: true, message: "Admin logged in sucessfully" });
     } else {
-      res.send({success : false, message : "Wrong Password"});
+      res.send({ success: false, message: "Wrong Password" });
     }
   } catch (error) {
     console.log(error);
   }
+});
+
+router.post("/approve/:id", (req, res) => {
+  // await Task.findById(req.params.id, (task) => {
+  //   task.status = req.body.status;
+  //   task.success = true;
+  //   task
+  //     .save()
+  //     .then((t) => {
+  //       res.send(t);
+  //     })
+  //     .catch((error) => {
+  //       res.send(error);
+  //     });
+  // });
+  Task.findOneAndUpdate(req.params.id, {
+    status : req.body.status,
+    success : true
+  }).then((response)=>{res.send(response)})
 });
 
 module.exports = router;

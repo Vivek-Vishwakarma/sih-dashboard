@@ -7,14 +7,14 @@ const testSchema = new Schema({
       },
     file : {
         type : String,
-        required : true
+        // required : true
     },
     description : {
         type : String,
     },
     department : {
         type : String,
-        required : true
+        // required : true
     },
     status : {
         type : String,
@@ -22,7 +22,7 @@ const testSchema = new Schema({
     },
     filename : {
         type : String,
-        required : true
+        // required : true
     },
     priority : {
         type : String
