@@ -5,7 +5,13 @@ import { AiFillEdit } from "react-icons/ai";
 
 import "../App.css";
 
-import { Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import axios from "axios";
 import Sidebar from "./Sidebar";
 const style = {
@@ -30,17 +36,18 @@ export default function Adminpop({ selectedTask }) {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/task/newtask"
-        // formData
+        `http://localhost:5000/api/admin/approve/${selectedTask}`,
+         {
+           status : approve,
+         }
       );
+      console.log(selectedTask);
       console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-      console.log(selectedTask);
-  }, []);
+
   return (
     <div>
       <AiFillEdit
@@ -65,7 +72,9 @@ export default function Adminpop({ selectedTask }) {
               name="status"
               value={approve}
               onChange={(e) => {
-                  setApprove(e.target.value)
+                setApprove(e.target.value);
+                console.log(e.target.value);
+                console.log(selectedTask);
               }}
             >
               <MenuItem value="approved">Approve</MenuItem>
@@ -74,7 +83,9 @@ export default function Adminpop({ selectedTask }) {
               <MenuItem value="desk 3">Desk 3</MenuItem>
             </Select>
           </FormControl>
-          <Button variant="contained" color="success" onClick={postApprove}>Confirm</Button>
+          <Button variant="contained" color="success" onClick={postApprove}>
+            Confirm
+          </Button>
         </Box>
       </Modal>
     </div>

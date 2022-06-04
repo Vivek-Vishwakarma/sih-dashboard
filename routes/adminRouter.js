@@ -30,7 +30,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/approve/:id", (req, res) => {
+router.post("/approve/:id", async (req, res) => {
   // await Task.findById(req.params.id, (task) => {
   //   task.status = req.body.status;
   //   task.success = true;
@@ -43,10 +43,10 @@ router.post("/approve/:id", (req, res) => {
   //       res.send(error);
   //     });
   // });
-  Task.findOneAndUpdate(req.params.id, {
+  await Task.findByIdAndUpdate(req.params.id, {
     status : req.body.status,
     success : true
-  }).then((response)=>{res.send(response)})
+  }).then((response)=>{res.status(200).send(response)})
 });
 
 module.exports = router;
